@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fercho's Drift - Autos a escala y coleccionables</title>
+  <meta name="description" content="Encuentra los mejores autos a escala, pistas y ediciones especiales en Fercho's Drift. Compra en línea con confirmación fácil por WhatsApp.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header>
+    <div class="header-container">
+      <a class="logo" id="logo-nav">Fercho's Drift<span>.</span></a>
+      
+      <div class="search-bar">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input type="text" id="search-input" placeholder="Buscar autos a escala, pistas, ediciones especiales...">
+      </div>
+      
+      <div class="nav-links">
+        <a class="nav-link" id="help-btn">Ayuda</a>
+        <a class="nav-link" id="account-btn">Mi cuenta</a>
+        <button class="cart-button" id="header-cart-btn">
+          Carrito
+          <span class="cart-count-badge" id="cart-badge-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main>
+    
+    <!-- 1. CATALOG VIEW -->
+    <div id="catalog-view" class="view-container active">
+      <div class="categories-container">
+        <div class="categories-list" id="category-filters">
+          <!-- Active categories will be generated in JS, fallback/static placeholders: -->
+          <button class="category-chip active" data-category="all">Novedades</button>
+          <button class="category-chip" data-category="deportivos">Deportivos</button>
+          <button class="category-chip" data-category="jdm">JDM</button>
+          <button class="category-chip" data-category="clasicos">Clásicos</button>
+          <button class="category-chip" data-category="pistas">Pistas</button>
+          <button class="category-chip" data-category="ediciones">Ediciones especiales</button>
+        </div>
+      </div>
+      
+      <div class="section-header">
+        <h2 class="section-title" id="catalog-section-title">Novedades de la semana</h2>
+        <span class="product-count-label" id="catalog-count-label">0 productos · escala 1:64 y 1:43</span>
+      </div>
+      
+      <div class="product-grid" id="product-grid-container">
+        <!-- Products dynamically rendered here -->
+      </div>
+    </div>
+
+    <!-- 2. CART VIEW -->
+    <div id="cart-view" class="view-container">
+      <div class="cart-layout">
+        <div class="cart-items-column">
+          <h2 class="cart-title">Tu carrito <span id="cart-title-count">· 0 productos</span></h2>
+          
+          <div id="cart-items-list">
+            <!-- Cart items dynamically rendered here -->
+          </div>
+          
+          <button class="back-link" id="cart-back-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Seguir comprando
+          </button>
+        </div>
+        
+        <div class="summary-card">
+          <h3 class="summary-title">Resumen</h3>
+          
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="cart-summary-subtotal">$0</span>
+          </div>
+          <div class="summary-row">
+            <span>Envío</span>
+            <span id="cart-summary-shipping">$0</span>
+          </div>
+          
+          <div class="summary-row total-row">
+            <span class="total-label">Total</span>
+            <span class="total-price" id="cart-summary-total">$0</span>
+          </div>
+          
+          <button class="btn btn-primary" id="cart-checkout-btn" style="margin-top: 16px;">
+            Continuar la compra
+          </button>
+          
+          <div class="summary-footer-note">
+            Pago por transferencia bancaria · sin comisiones
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. CHECKOUT STEP 1: EMAIL -->
+    <div id="checkout-email-view" class="view-container">
+      <!-- Steps Navigation -->
+      <div class="checkout-steps-bar">
+        <div class="step-indicator active">
+          <span class="step-num">1</span> Datos
+        </div>
+        <div class="step-indicator">
+          <span class="step-num">2</span> Pago
+        </div>
+        <div class="step-indicator">
+          <span class="step-num">3</span> Comprobante
+        </div>
+        <div class="secure-payment-label">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+          </svg>
+          Pago seguro
+        </div>
+      </div>
+
+      <button class="back-link" id="checkout-email-back" style="margin-bottom: 24px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Volver al carrito
+      </button>
+
+      <div class="checkout-layout">
+        <div class="checkout-box">
+          <h2 class="checkout-heading">¿A qué correo te enviamos el estado de tu pedido?</h2>
+          <p class="checkout-subheading">No necesitas crear una cuenta. Te avisamos aquí cuando aprobemos tu transferencia.</p>
+          
+          <form id="email-form" onsubmit="return false;">
+            <div class="form-group">
+              <label for="email" class="form-label">Correo electrónico</label>
+              <input type="email" id="checkout-email-input" class="form-input" placeholder="coleccionista@correo.com" required>
+              <span class="summary-footer-note" style="display: block; text-align: left; margin-top: 8px;">
+                Te enviaremos la confirmación y el estado del pedido a este correo.
+              </span>
+            </div>
+            
+            <div class="checkbox-group" id="newsletter-toggle">
+              <input type="checkbox" id="newsletter-check" class="checkbox-input" checked>
+              <label for="newsletter-check" class="checkbox-label">
+                Quiero recibir novedades y próximos lanzamientos
+              </label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" id="email-submit-btn">
+              Continuar al pago
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </form>
+          
+          <div class="summary-footer-note" style="margin-top: 24px;">
+            Transferencia bancaria · sin comisiones · datos protegidos
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <h3 class="summary-title" style="margin-bottom: 16px;">Tu pedido</h3>
+          
+          <div class="mini-order-list" id="mini-order-list-email">
+            <!-- Rendered list of items -->
+          </div>
+          
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="checkout-email-subtotal">$0</span>
+          </div>
+          <div class="summary-row">
+            <span>Envío</span>
+            <span id="checkout-email-shipping">$0</span>
+          </div>
+          <div class="summary-row total-row">
+            <span class="total-label">Total</span>
+            <span class="total-price" id="checkout-email-total">$0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. CHECKOUT STEP 2: PAYMENT INFO -->
+    <div id="checkout-payment-view" class="view-container">
+      <!-- Steps Navigation -->
+      <div class="checkout-steps-bar">
+        <div class="step-indicator completed">
+          <span class="step-num">✓</span> Datos
+        </div>
+        <div class="step-indicator active">
+          <span class="step-num">2</span> Pago
+        </div>
+        <div class="step-indicator">
+          <span class="step-num">3</span> Comprobante
+        </div>
+        <div class="secure-payment-label">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+          </svg>
+          Pago seguro
+        </div>
+      </div>
+
+      <button class="back-link" id="checkout-payment-back" style="margin-bottom: 24px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Volver
+      </button>
+
+      <div class="checkout-layout">
+        <div class="checkout-box">
+          <h2 class="checkout-heading">Realiza tu transferencia</h2>
+          <p class="checkout-subheading" style="margin-bottom: 24px;">
+            Transfiere el total exacto a la siguiente cuenta e incluye la referencia en el concepto. El pago se confirma manualmente.
+          </p>
+          
+          <div class="payment-summary-boxes">
+            <div class="payment-widget-box">
+              <div class="widget-label">Monto a pagar</div>
+              <div class="widget-value-large" id="payment-widget-total">$0</div>
+            </div>
+            
+            <div class="payment-widget-box">
+              <div class="widget-label">Referencia / Concepto</div>
+              <div class="widget-value-code" id="payment-widget-ref">FSD-4827</div>
+            </div>
+          </div>
+          
+          <div class="bank-details-card">
+            <div class="bank-detail-row">
+              <span class="bank-detail-label">Banco</span>
+              <span class="bank-detail-value">BBVA México</span>
+            </div>
+            
+            <div class="bank-detail-row">
+              <span class="bank-detail-label">Titular</span>
+              <span class="bank-detail-value">Fercho's Drift S.A. de C.V.</span>
+            </div>
+            
+            <div class="bank-detail-row">
+              <div class="bank-detail-copy-row">
+                <div>
+                  <span class="bank-detail-label">CLABE interbancaria</span>
+                  <span class="bank-detail-value" id="bank-clabe-value">012 180 01234 567890</span>
+                </div>
+                <button class="btn-copy" id="btn-copy-clabe" data-copy="01218001234567890">Copiar</button>
+              </div>
+            </div>
+            
+            <div class="bank-detail-row">
+              <div class="bank-detail-copy-row">
+                <div>
+                  <span class="bank-detail-label">Número de cuenta</span>
+                  <span class="bank-detail-value" id="bank-acc-value">0123 4567 89</span>
+                </div>
+                <button class="btn-copy" id="btn-copy-acc" data-copy="0123456789">Copiar</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="payment-note-box">
+            El pedido se confirma manualmente. En el siguiente paso subes tu comprobante para que revisemos y aprobemos tu compra.
+          </div>
+          
+          <button class="btn btn-primary" id="payment-submit-btn">
+            Ya transferí – subir comprobante
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="summary-card">
+          <h3 class="summary-title" style="margin-bottom: 16px;">Tu pedido</h3>
+          
+          <div class="mini-order-list" id="mini-order-list-payment">
+            <!-- Rendered list of items -->
+          </div>
+          
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="checkout-payment-subtotal">$0</span>
+          </div>
+          <div class="summary-row">
+            <span>Envío</span>
+            <span id="checkout-payment-shipping">$0</span>
+          </div>
+          <div class="summary-row total-row">
+            <span class="total-label">Total</span>
+            <span class="total-price" id="checkout-payment-total">$0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. CHECKOUT STEP 3: WHATSAPP COMPROBANTE -->
+    <div id="checkout-whatsapp-view" class="view-container">
+      <!-- Steps Navigation -->
+      <div class="checkout-steps-bar">
+        <div class="step-indicator completed">
+          <span class="step-num">✓</span> Datos
+        </div>
+        <div class="step-indicator completed">
+          <span class="step-num">✓</span> Pago
+        </div>
+        <div class="step-indicator active">
+          <span class="step-num">3</span> Comprobante
+        </div>
+        <div class="secure-payment-label">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+          </svg>
+          Pago seguro
+        </div>
+      </div>
+
+      <button class="back-link" id="checkout-whatsapp-back" style="margin-bottom: 24px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Volver
+      </button>
+
+      <div style="max-width: 680px; margin: 0 auto;">
+        <div class="checkout-box">
+          <h2 class="checkout-heading">Envía tu comprobante por WhatsApp</h2>
+          <p class="checkout-subheading" style="margin-bottom: 32px;">
+            El comprobante se envía por WhatsApp, no en esta página. Abre el chat con nuestro número, mándalo ahí y luego confirma aquí para que tu pedido entre a revisión.
+          </p>
+          
+          <div class="instruction-step-card">
+            <div class="step-badge-circle">1</div>
+            <div class="instruction-step-content">
+              <h3 class="instruction-step-title">Abre WhatsApp y envía tu comprobante</h3>
+              <p class="instruction-step-text">
+                Toca el botón para abrir el chat con nuestro número. Adjunta ahí la foto o el PDF de tu transferencia.
+              </p>
+              <a href="#" target="_blank" class="btn btn-whatsapp" id="btn-open-whatsapp">
+                <!-- SVG WhatsApp icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24" style="margin-right: 4px;">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.035-4.43c1.611.956 3.197 1.493 4.908 1.495 5.513 0 9.998-4.486 10.001-10 .003-2.672-1.026-5.183-2.898-7.058C16.231 2.132 13.731.966 11.99.966c-5.518 0-10 4.486-10.005 10-.001 1.799.479 3.55 1.391 5.125l-.999 3.648 3.71-.973zm13.11-6.938c-.3-.15-1.771-.875-2.028-.969-.258-.094-.446-.14-.633.14-.187.281-.726.969-.89 1.156-.164.188-.328.21-.628.06-1.012-.507-1.71-.893-2.385-2.05-.164-.282.164-.262.469-.872.09-.18.045-.337-.022-.487-.068-.15-.633-1.526-.867-2.09-.228-.547-.46-.473-.633-.482-.164-.008-.352-.01-.54-.01-.187 0-.492.07-.75.352-.258.28-1.028 1.006-1.028 2.451 0 1.446 1.053 2.84 1.2 3.028.146.188 2.072 3.164 5.019 4.438.7.303 1.25.484 1.677.62.704.223 1.345.191 1.851.115.564-.084 1.771-.726 2.022-1.428.252-.703.252-1.306.177-1.428-.075-.123-.272-.197-.573-.347z"/>
+                </svg>
+                Abrir WhatsApp · <span id="whatsapp-number-display">+52 ••• ••• 4827</span>
+              </a>
+            </div>
+          </div>
+          
+          <div class="instruction-step-card">
+            <div class="step-badge-circle">2</div>
+            <div class="instruction-step-content">
+              <h3 class="instruction-step-title">Confirma que ya lo enviaste</h3>
+              <p class="instruction-step-text">
+                Cuando hayas mandado tu comprobante por WhatsApp, márcalo aquí. Así tu pedido entra a revisión.
+              </p>
+              <button class="btn btn-primary" id="btn-confirm-sent">
+                Ya envié mi comprobante
+              </button>
+            </div>
+          </div>
+          
+          <div class="success-alert-box" id="whatsapp-alert-ref">
+            Al confirmar, tu pedido pasa a revisión. Te avisamos por correo cuando sea aprobado. Referencia FSD-4827.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. ORDER PLACED / SUCCESS VIEW -->
+    <div id="order-success-view" class="view-container">
+      <div class="success-view-card">
+        <div class="success-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        
+        <h2 class="success-order-title">¡Pedido Recibido!</h2>
+        <p class="success-order-text">
+          Tu pedido ha sido registrado con éxito. Estamos revisando tu comprobante de transferencia y te enviaremos una notificación al correo electrónico proporcionado cuando tu pago sea validado.
+        </p>
+        
+        <div class="success-details-list">
+          <div class="success-detail-item">
+            <span class="success-detail-label">Referencia del pedido:</span>
+            <span class="success-detail-val code" id="success-order-ref">FSD-0000</span>
+          </div>
+          <div class="success-detail-item">
+            <span class="success-detail-label">Correo electrónico:</span>
+            <span class="success-detail-val" id="success-order-email">coleccionista@correo.com</span>
+          </div>
+          <div class="success-detail-item">
+            <span class="success-detail-label">Método de confirmación:</span>
+            <span class="success-detail-val">WhatsApp + Transferencia</span>
+          </div>
+          <div class="success-detail-item">
+            <span class="success-detail-label">Total pagado:</span>
+            <span class="success-detail-val" id="success-order-total">$0</span>
+          </div>
+        </div>
+        
+        <button class="btn btn-primary" id="success-home-btn" style="max-width: 280px; margin: 0 auto;">
+          Volver a la tienda
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
